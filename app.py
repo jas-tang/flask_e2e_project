@@ -20,32 +20,35 @@ inspector.get_table_names()
 app = Flask(__name__)
 
 # Configure the database URI using PyMySQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://jason:jason2023@172.174.249.223:3306/mindlamp'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://jason504:Thisismypassword2000*@jason-azure.mysql.database.azure.com/mindlamp'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the SQLAlchemy instance
-db = SQLAlchemy(app, session_options={'autoflush': False})
+db = SQLAlchemy(app)
 
-class LAMPdata(db.Model):
-    userID = db.Column(db.String(50), primary_key=True)
-    userNAME = db.Column(db.String(50), nullable=False)
-    ActivityName = db.Column(db.String(50), nullable=False)
-    ActivityDate = db.Column(db.String(50), nullable=False)
-    item = db.Column(db.String(50), nullable=False)
-    value = db.Column(db.String(50), nullable=False)
-    type = db.Column(db.String(50), nullable=False)
+class lampdata(db.Model):
+    __tablename__ = 'lampdata'
+    my_row_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    userID = db.Column(db.String(10000), nullable=False)
+    userNAME = db.Column(db.String(10000), nullable=False)
+    ActivityName = db.Column(db.String(10000), nullable=False)
+    ActivityDate = db.Column(db.Date, nullable=False) 
+    item = db.Column(db.String(10000), nullable=False)
+    value = db.Column(db.String(10000), nullable=False)
+    type = db.Column(db.String(10000), nullable=False)
 
 @app.route('/')
 def index():
     return render_template('base.html')
 
 @app.route('/mindlamp_data')
-def mindlamp():
-    lampdata = LAMPdata.query.all()
-    return render_template('index.html', lampdata=lampdata)
+def mindlamp_route():
+    mindlamp_data = lampdata.query.all()
+    return render_template('index.html', lampdata=mindlamp_data)
 
 if __name__ == '__main__':
     app.run(
         debug=True,
-        port=8080
+        port=8000
     )
+

@@ -15,7 +15,7 @@
     <table class="border-collapse border border-gray-400">
         <thead>
             <tr>
-                <th class="border border-gray-400 p-2">ID</th> <!-- Updated header to display ID instead of User ID -->
+                <th class="border border-gray-400 p-2">User ID</th>
                 <th class="border border-gray-400 p-2">User Name</th>
                 <th class="border border-gray-400 p-2">Activity Name</th>
                 <th class="border border-gray-400 p-2">Activity Date</th>
@@ -25,10 +25,9 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Loop through each record and display its attributes in the columns -->
             {% for record in lampdata %}
                 <tr>
-                    <td class="border border-gray-400 p-2">{{ record.my_row_id }}</td> 
+                    <td class="border border-gray-400 p-2">{{ record.userID }}</td>
                     <td class="border border-gray-400 p-2">{{ record.userNAME }}</td>
                     <td class="border border-gray-400 p-2">{{ record.ActivityName }}</td>
                     <td class="border border-gray-400 p-2">{{ record.ActivityDate }}</td>
