@@ -39,7 +39,7 @@ class lampdata(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    return render_template('home.html')
 
 @app.route('/mindlamp_data')
 def mindlamp_route():
