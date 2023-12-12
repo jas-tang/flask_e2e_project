@@ -3,12 +3,24 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, inspect, Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import or_
+from dotenv import load_dotenv
+import os
 
+# Load environment variables from .env
+load_dotenv()
+
+# Construct the database URL
+db_username = os.getenv('DB_USERNAME')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_name = os.getenv('DB_NAME')
+
+database_url = f"mysql+pymysql://{db_username}:{db_password}@{db_host}/{db_name}"
+print(database_url)
 
 ### Part 2 - initial sqlalchemy-engine to connect to db:
 
-engine = create_engine("mysql+pymysql://jason504:Thisismypassword2000*@jason-azure.mysql.database.azure.com/mindlamp",
+engine = create_engine(database_url,
                          connect_args={'ssl': {'ssl-mode': 'preferred'}},
                          )
 
@@ -21,7 +33,7 @@ inspector.get_table_names()
 app = Flask(__name__)
 
 # Configure the database URI using PyMySQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://jason504:Thisismypassword2000*@jason-azure.mysql.database.azure.com/mindlamp'
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the SQLAlchemy instance
