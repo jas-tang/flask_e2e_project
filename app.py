@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, inspect, Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import or_
 
 
 ### Part 2 - initial sqlalchemy-engine to connect to db:
@@ -45,6 +46,26 @@ def index():
 def mindlamp_route():
     mindlamp_data = lampdata.query.all()
     return render_template('index.html', lampdata=mindlamp_data)
+
+from flask import Flask, render_template, request
+
+
+@app.route('/filter', methods=['GET', 'POST'])
+def filter_data():
+    filter_user_ids = request.form.getlist('filter_user_id')
+
+    
+    if not filter_user_ids or '' in filter_user_ids:
+        # If "All" is selected or no specific user is selected, retrieve all data
+        filtered_data = lampdata.query.all()
+    else:
+        # Perform filtering based on the selected user IDs
+        # Use the `in_` clause to filter for multiple user IDs
+        filtered_data = lampdata.query.filter(lampdata.userID.in_(filter_user_ids)).all()
+
+    return render_template('index.html', filtered_data=filtered_data)
+
+
 
 if __name__ == '__main__':
     app.run(
