@@ -1,10 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, inspect, Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
 import os
+from db_functions import update_or_create_user
+from authlib.integrations.flask_client import OAuth
+from authlib.common.security import generate_token
 
 # Load environment variables from .env
 load_dotenv()
@@ -29,8 +32,15 @@ engine = create_engine(database_url,
 inspector = inspect(engine)
 inspector.get_table_names()
 
+## OAuth
+#GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+#GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+GOOGLE_CLIENT_ID = '329430652810-3jdklcb9abnkotgad26iq9oc1alsb19h.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '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'
 
 app = Flask(__name__)
+app.secret_key = os.urandom(12)
+oauth = OAuth(app)
 
 # Configure the database URI using PyMySQL
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
@@ -52,7 +62,53 @@ class lampdata(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('googleoauth.html')
+
+@app.route('/google/')
+def google():
+    CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+    oauth.register(
+        name='google',
+        client_id=GOOGLE_CLIENT_ID,
+        client_secret=GOOGLE_CLIENT_SECRET,
+        server_metadata_url=CONF_URL,
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+
+    # Redirect to google_auth function
+    ###note, if running locally on a non-google shell, do not need to override redirect_uri
+    ### and can just use url_for as below
+    redirect_uri = url_for('google_auth', _external=True)
+    print('REDIRECT URL: ', redirect_uri)
+    session['nonce'] = generate_token()
+    ##, note: if running in google shell, need to override redirect_uri 
+    ## to the external web address of the shell, e.g.,
+    redirect_uri = 'https://8000-cs-51349017989-default.cs-us-east1-vpcf.cloudshell.dev/google/auth/'
+    return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
+
+@app.route('/google/auth/')
+def google_auth():
+    token = oauth.google.authorize_access_token()
+    user = oauth.google.parse_id_token(token, nonce=session['nonce'])
+    session['user'] = user
+    update_or_create_user(user)
+    print(" Google User ", user)
+    return redirect('/home')
+
+@app.route('/home/')
+def dashboard():
+    user = session.get('user')
+    if user:
+        return render_template('home.html', user=user)
+    else:
+        return redirect('/')
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect('/')
 
 @app.route('/mindlamp_data')
 def mindlamp_route():
