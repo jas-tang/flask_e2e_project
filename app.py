@@ -33,10 +33,9 @@ inspector = inspect(engine)
 inspector.get_table_names()
 
 ## OAuth
-#GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
-#GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
-GOOGLE_CLIENT_ID = '329430652810-3jdklcb9abnkotgad26iq9oc1alsb19h.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)

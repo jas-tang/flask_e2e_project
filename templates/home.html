@@ -4,7 +4,7 @@
 
 <main class="p-4">
     <h2 class="text-2xl"></h2>
-    <p class="mb-4">Welcome to my mindLAMP Database.</p>
+    <p class="mb-4">Welcome {{ user.name }} to my mindLAMP Database.</p>
 
     <p class="mb-4">The LAMP Platform is a solution for neuropsychiatric research and clinical care management. It was specifically created to streamline the administration of research studies and digitally-enabled clinics. It uses numerous components to automate workflows, offering a simplified approach to clinical and data management.</p>
 
@@ -18,14 +18,38 @@
 </main>
 
 <body>
-    <h1> Dashboard</h1>
-    <h3> Welcome {{ user.name }} </h3>
+    
     <h2> User Details</h2>
     <div>
         <p> Name: {{ user.name }} </p>
         <p> Email: {{ user.email }} </p>
-        <p> Profile Picture: <img src="{{ user.picture }}" alt="Profile Picture" style="width:50px;height:50px;"> </p>
     </div>
+
+    <style>
+        body {
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+
+        .profile-picture-container {
+            position: fixed; /* Fixed position */
+            top: 10px; /* Distance from the top */
+            right: 10px; /* Distance from the right */
+            z-index: 1000; /* Set z-index to make sure it appears above other elements */
+        }
+
+        .profile-picture {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-picture-container">
+    <p>src="{{ user.picture }}" alt="Profile Picture" class="profile-picture"></p>
+</div>
+    
     <div>
         <a href="/logout" class="logout-btn" style="text-decoration:none;">
             <div class="btn-text">
