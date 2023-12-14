@@ -8,6 +8,7 @@ import os
 from db_functions import update_or_create_user
 from authlib.integrations.flask_client import OAuth
 from authlib.common.security import generate_token
+import sentry_sdk
 
 # Load environment variables from .env
 load_dotenv()
@@ -36,8 +37,27 @@ inspector.get_table_names()
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 
+##SDK Sentry
+sentry_sdk.init(
+    dsn="",
+    traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+)
+
+sentry_sdk.init(
+    dsn="https://76cc562e9f73c47a55644f0175136426@o4506392591204352.ingest.sentry.io/4506392595005440",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
 
 app = Flask(__name__)
+
+
 app.secret_key = os.urandom(12)
 oauth = OAuth(app)
 
@@ -62,6 +82,14 @@ class lampdata(db.Model):
 @app.route('/')
 def index():
     return render_template('googleoauth.html')
+
+#testing for Sentry SDK
+@app.route('/error')
+def creating_error():
+    try:
+        1/0
+    except Exception as e:
+        raise Exception (f'Something went wrong: {e}')
 
 @app.route('/google/')
 def google():
