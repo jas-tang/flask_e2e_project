@@ -1,7 +1,7 @@
 # flask_e2e_project
 This is a repository for the Final Assignment (Product / Web Service) for HHA504/507
 
-For this project, the intention was to build an app that displays data from a datasource. I used data from my mindlamp project, see more here. 
+For this project, the intention was to build an app that displays data from a datasource. I used data from my mindlamp project, see more [here](https://github.com/jas-tang/AHI_mindLAMP). 
 
 ## Imports
 ```python
@@ -28,16 +28,17 @@ GOOGLE_CLIENT_SECRET =
 
 ## The Datasource
 
-My data source comes from a sql server on azure. It is on an Azure database for MySQL flexible server. Following the insturctions on this github [repository](https://github.com/jas-tang/mysql_cloudmanaged_databases), I was able to set up my server. 
+My data source comes from a sql server on azure. It is on an Azure database for MySQL flexible server. Following the instructions on this github [repository](https://github.com/jas-tang/mysql_cloudmanaged_databases), I was able to set up my server. 
 
 This is what my server looked like.
 ![](https://github.com/jas-tang/mysql_cloudmanaged_databases/blob/main/images/azure3.png)
 
 I think launched mysqlworkbench to import my data, which was in a CSV format. Using the importing wizard, I was able to transfer my data onto mySQLworkbench. 
-image here 01
+
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/01.JPG)
 
 The data is properly sitting within the server.
-image here 02
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/02.JPG)
 
 ## Connecting to the data source
 In my app.py file, we have to construct the database URL. 
@@ -72,7 +73,7 @@ inspector = inspect(engine)
 inspector.get_table_names()
 ```
 We properly created the connection. 
-insert image 03
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/03.jpg)
 
 ## Base application
 We initialize the database. 
@@ -170,8 +171,8 @@ I created a home landing page, as well as the index, which showed the data. Last
 
 ## Google OAuth
 Going this this [site](https://console.cloud.google.com/apis/credentials/consent), we are able to create a consent screen. 
-image 1 
-image 2
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/oauth.JPG)
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/oauth2.JPG)
 
 We then have to go to credentials, and manage the credentials. We inputed our flask app's designated port. 
 ```
@@ -332,7 +333,8 @@ def mindlamp_route():
         raise Exception (f'Something went wrong: {e}')
 ```
 If an issue were to occur, we would see the issue on Sentry IO. 
-insert image 1 and 2
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/sentrysdk.JPG)
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/sentrysdk2.JPG)
 
 ## Additional Filter Function
 This code created a filter button to go through my data.
@@ -401,6 +403,8 @@ docker run -d -p 8000:8000 "name of image"
 ```
 The docker container should be functioning and running on port 8000. 
 
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/docker%20container%20success.JPG)
+
 Then I created the docker-compose.yaml file.
 ```
 version: '3'
@@ -420,4 +424,4 @@ docker-compose up --build
 ## Azure Deployment
 My attempt at deploying on azure failed because I realized that my app.py was reliant on multiple files. When I was deploying my app.py, it was only deploying app.py, but not the rest of the requirements. 
 I was able to deploy an app, but it did not function.
-image
+
