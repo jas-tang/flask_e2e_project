@@ -6,7 +6,7 @@ For this project, the intention was to build an application that displays data f
 We used Github for version control. We used Flask-Python to build the application for both front and and backend with various routes. We also used MySQL, with is databse on Azure. We used SQL Alchemy to connect to the database. We used .env to hide our credentials. We used tailwind and css to customize our HTML files. We used Google OAuth for security and storing user log in information onto a database. We used Sentry.io as a logger and debugging tool. We used Docker to contain our application. 
 
 ## Demo
-Video here
+https://github.com/jas-tang/flask_e2e_project/assets/141374136/d9ca50cd-7f8b-4c62-91ce-bb9037f71711
 
 ## Quickstart
 To run locally, insert credentials onto environment. Run app.py within the app folder.
