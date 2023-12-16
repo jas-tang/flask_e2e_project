@@ -1,3 +1,6 @@
-flask
+Flask
 authlib
-requests
+Flask-SQLAlchemy
+sentry-sdk
+dotenv
+

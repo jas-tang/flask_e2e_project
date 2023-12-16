@@ -1,7 +1,12 @@
 import sqlite3
+import os
 
 # Initialize the database
 DATABASE = 'users.db'
+
+# Specifying the path
+DB_FOLDER = '/home/jason_tang/flask_e2e_project/db'
+DATABASE = os.path.join(DB_FOLDER, 'users.db')
 
 def get_db():
     db = sqlite3.connect(DATABASE)
