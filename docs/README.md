@@ -43,7 +43,7 @@ My data source comes from a sql server on azure. It is on an Azure database for 
 This is what my server looked like.
 ![](https://github.com/jas-tang/mysql_cloudmanaged_databases/blob/main/images/azure3.png)
 
-I think launched mysqlworkbench to import my data, which was in a CSV format. Using the importing wizard, I was able to transfer my data onto mySQLworkbench. 
+I launched mysqlworkbench to import my data, which was in a CSV format. Using the importing wizard, I was able to transfer my data onto mySQLworkbench. 
 
 ![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/01.JPG)
 
