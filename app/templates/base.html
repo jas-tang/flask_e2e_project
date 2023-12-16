@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mindLAMP AHI</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200">
+
+    <header class="bg-red-600 text-white p-4">
+        <h1 class="text-4xl">mindLAMP Data AHI</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="/home/" class="hover:underline">Home</a></li>
+                <li><a href="{{ url_for('mindlamp_route') }}" class="hover:underline">Data</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="p-4">
+
+        {% block content %}{% endblock %}
+
+    </main>
+
+    <footer class="bg-red-600 text-white p-4 mt-6">
+        <p>Check <a href="https://github.com/jas-tang/flask_e2e_project">Github</a> for more information</p>
+    </footer>
+
+    <style>
+        a:link {
+          color: green;
+          background-color: transparent;
+          text-decoration: none;
+        }
+        a:visited {
+          color: pink;
+          background-color: transparent;
+          text-decoration: none;
+        }
+        a:hover {
+          color: red;
+          background-color: transparent;
+          text-decoration: underline;
+        }
+        a:active {
+          color: yellow;
+          background-color: transparent;
+          text-decoration: underline;
+        }
+        </style>
+
+</body>
+
+</html>

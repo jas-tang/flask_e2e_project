@@ -1,0 +1,75 @@
+{% extends "base.html" %} 
+
+{% block content %}
+    <style>
+        .filter-button-container {
+            background-color: #dddddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .filter-button {
+            background-color: #555555;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .filter-text-container {
+            background-color: #dddddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+
+    <form method="post" action="{{ url_for('filter_data') }}">
+        
+        <div class="filter-text-container">
+            <label for="filter_user_id">Filter by User ID:</label>
+        </div>
+        <select name="filter_user_id" id="filter_user_id" multiple>
+            <option value="">All</option>
+            <option value="U1679776962">User 1</option>
+            <option value="U5865730305">User 2</option>
+            <option value="U8921287556">User 3</option>
+            
+        </select>
+        
+        <div class="filter-button-container">
+            <button class="filter-button" type="submit">Apply Filter</button>
+        </div>
+    </form>
+
+    <table class="border-collapse border border-gray-400">
+        <thead>
+            <tr>
+                <th class="border border-gray-400 p-2">ID</th> 
+                <th class="border border-gray-400 p-2">User Name</th>
+                <th class="border border-gray-400 p-2">Activity Name</th>
+                <th class="border border-gray-400 p-2">Activity Date</th>
+                <th class="border border-gray-400 p-2">Item</th>
+                <th class="border border-gray-400 p-2">Value</th>
+                <th class="border border-gray-400 p-2">Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for record in filtered_data %}
+                <tr>
+                    <td class="border border-gray-400 p-2">{{ record.my_row_id }}</td> 
+                    <td class="border border-gray-400 p-2">{{ record.userNAME }}</td>
+                    <td class="border border-gray-400 p-2">{{ record.ActivityName }}</td>
+                    <td class="border border-gray-400 p-2">{{ record.ActivityDate }}</td>
+                    <td class="border border-gray-400 p-2">{{ record.item }}</td>
+                    <td class="border border-gray-400 p-2">{{ record.value }}</td>
+                    <td class="border border-gray-400 p-2">{{ record.type }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+   
+
+{% endblock %}
