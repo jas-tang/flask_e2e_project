@@ -8,9 +8,6 @@ import os
 from authlib.integrations.flask_client import OAuth
 from authlib.common.security import generate_token
 import sentry_sdk
-
-import sys
-sys.path.append('/home/jason_tang/flask_e2e_project/db')
 from db_functions import update_or_create_user
 
 # Load environment variables from .env
