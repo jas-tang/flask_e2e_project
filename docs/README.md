@@ -1,7 +1,17 @@
 # flask_e2e_project
 This is a repository for the Final Assignment (Product / Web Service) for HHA504/507
 
-For this project, the intention was to build an app that displays data from a datasource. I used data from my mindlamp project, see more [here](https://github.com/jas-tang/AHI_mindLAMP). 
+For this project, the intention was to build an application that displays data from a datasource. I used data from my mindlamp project, see more [here](https://github.com/jas-tang/AHI_mindLAMP). 
+
+We used Github for version control. We used Flask-Python to build the application for both front and and backend with various routes. We also used MySQL, with is databse on Azure. We used SQL Alchemy to connect to the database. We used .env to hide our credentials. We used tailwind and css to customize our HTML files. We used Google OAuth for security and storing user log in information onto a database. We used Sentry.io as a logger and debugging tool. We used Docker to contain our application. 
+
+## Demo
+Video here
+
+## Quickstart
+To run locally, insert credentials onto environment. Run app.py within the app folder.
+
+To run with docker, use docker-compose up --build
 
 ## Imports
 ```python
@@ -424,4 +434,4 @@ docker-compose up --build
 ## Azure Deployment
 My attempt at deploying on azure failed because I realized that my app.py was reliant on multiple files. When I was deploying my app.py, it was only deploying app.py, but not the rest of the requirements. 
 I was able to deploy an app, but it did not function.
-
+![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/azure%20web%20app.JPG)
