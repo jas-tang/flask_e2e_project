@@ -432,6 +432,52 @@ docker-compose up --build
 ```
 
 ## Azure Deployment
+Install Azure CLI by pasting the following script into the shell
+```
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+```
+
+Test if the install worked correct with the following code
+```
+az
+```
+
+Give permission to the shell with a Microsoft account
+```
+az login --use-device-code
+```
+
+Locate all subscription IDs within the shell
+```
+az account list --output table
+```
+
+Change the subscription approrpiate name. For my case, it was Azure for Students.
+
+```
+az account set --subscription (insert the subscription ID here)
+```
+
+Create a new resource group within the Azure Web Portal. It is located in the Resource Group tab. Ensure that the new group has its subscription set to the working subscription name. For my case, it was Azure for Students. 
+
+Create the web app and connect it to Microsoft Azure with the following code.
+```
+az webapp up --resource-group (insert group name) --name (insert your app name) --runtime <(Insert language)> --sku <(insert service plan)>
+az webapp up --resource-group Jason504 --name jastang504-flask --runtime <Python> --sku <b1>
+```
+
+The application should now be deployed. Access your application via Microsoft Azure's App Services tab. 
+
+In the case that you need to redeploy the app, use the following code
+```
+az webapp up
+```
+
+Here is how you delete the app
+```
+az webapp delete --name (insert app name) --resource-group (insert resource group)
+```
+
 My attempt at deploying on azure failed because I realized that my app.py was reliant on multiple files. When I was deploying my app.py, it was only deploying app.py, but not the rest of the requirements. 
 I was able to deploy an app, but it did not function.
 ![](https://github.com/jas-tang/flask_e2e_project/blob/main/docs/azure%20web%20app.JPG)
